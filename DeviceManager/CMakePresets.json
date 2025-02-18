@@ -1,0 +1,150 @@
+{
+  "version": 9,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 30,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "ConfigurationBase",
+      "hidden": true,
+      "binaryDir": "${sourceParentDir}/DeviceManagerBuild",
+      "installDir": "${sourceParentDir}/DeviceManagerInstall"
+    },
+    {
+      "name": "default",
+      "inherits": "ConfigurationBase",
+      "displayName": "Default Config",
+      "description": "Use the system's default configuration."
+    },
+    {
+      "name": "vs2022",
+      "inherits": "ConfigurationBase",
+      "displayName": "Visual Studio 2022 Config",
+      "description": "Build using Visual Studio 2022 generator.",
+      "generator": "Visual Studio 17 2022"
+    },
+    {
+      "name": "ninja",
+      "inherits": "ConfigurationBase",
+      "displayName": "Ninja Multi-Config",
+      "description": "Build using Ninja Multi-Config generator.",
+      "generator": "Ninja Multi-Config"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "BuildBase",
+      "hidden": true,
+      "targets": "install"
+    },
+    {
+      "name": "default",
+      "inherits": "BuildBase",
+      "configurePreset": "default",
+      "displayName": "Default Build and Install",
+      "description": "Default build and install."
+    },
+    {
+      "name": "vs2022",
+      "inherits": "BuildBase",
+      "configurePreset": "vs2022",
+      "displayName": "VS2022 Build and Install",
+      "description": "VS2022 Release build and install.",
+      "configuration": "Release"
+    },
+    {
+      "name": "ninja",
+      "inherits": "BuildBase",
+      "configurePreset": "ninja",
+      "displayName": "Ninja Build and Install",
+      "description": "Ninja Release build and install.",
+      "configuration": "Release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "TestBase",
+      "hidden": true,
+      "output": {"outputOnFailure": true, "shortProgress": true},
+      "execution": {"noTestsAction": "error", "stopOnFailure": true}
+    },
+    {
+      "name": "default",
+      "inherits": "TestBase",
+      "configurePreset": "default",
+      "displayName": "Default Tests",
+      "description": "Tests for default configuration."
+    },
+    {
+      "name": "vs2022",
+      "inherits": "TestBase",
+      "configurePreset": "vs2022",
+      "displayName": "VS2022 Tests",
+      "description": "Tests for VS2022 configuration.",
+      "configuration": "Release"
+    },
+    {
+      "name": "ninja",
+      "inherits": "TestBase",
+      "configurePreset": "ninja",
+      "displayName": "Ninja Tests",
+      "description": "Tests for Ninja configuration.",
+      "configuration": "Release"
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "default",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "default"
+        },
+        {
+          "type": "build",
+          "name": "default"
+        },
+        {
+          "type": "test",
+          "name": "default"
+        }
+      ]
+    },
+    {
+      "name": "vs2022",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "vs2022"
+        },
+        {
+          "type": "build",
+          "name": "vs2022"
+        },
+        {
+          "type": "test",
+          "name": "vs2022"
+        }
+      ]
+    },
+    {
+      "name": "ninja",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "ninja"
+        },
+        {
+          "type": "build",
+          "name": "ninja"
+        },
+        {
+          "type": "test",
+          "name": "ninja"
+        }
+      ]
+    }
+  ]
+}
