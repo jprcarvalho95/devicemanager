@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include "IDevice.h"
 #include <IDevicePresenter.h>
+
 class Device : IDevice
 {
 public:

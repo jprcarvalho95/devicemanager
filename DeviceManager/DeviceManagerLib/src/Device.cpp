@@ -39,5 +39,5 @@ std::string Device::getDescription() const
 			   std::to_string( this->maxId ).length() )
 		<< std::setfill( '0' ) << this->getDeviceID();
 
-	return oss.str();
+	return this->getDevicePrefix() + oss.str();
 }

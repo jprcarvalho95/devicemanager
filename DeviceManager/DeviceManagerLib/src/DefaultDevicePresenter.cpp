@@ -1,8 +1,8 @@
 #include "DefaultDevicePresenter.h"
 #include <iostream>
 #include <iomanip>
-
 DefaultDevicePresenter::DefaultDevicePresenter()
+	: IDevicePresenter()
 {
 }
 

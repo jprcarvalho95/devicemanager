@@ -1,8 +1,9 @@
+#pragma once
 #include <string>
 #include <IDevice.h>
 class IDevicePresenter {
 public:
-	virtual ~IDevicePresenter() = default;
+ 	virtual ~IDevicePresenter() = default;
 
 	//Set functions as purely virtual to provide interface behavior
 	virtual void PresentDeviceName(const IDevice& device) = 0;
