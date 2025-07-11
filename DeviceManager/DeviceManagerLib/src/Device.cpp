@@ -57,3 +57,4 @@ std::string Device::getDescription() const
 
 	return this->getDevicePrefix() + oss.str();
 }
+

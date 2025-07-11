@@ -11,6 +11,7 @@
 #include <DigitalDeviceFactory.h>
 #include <AnalogSequentialIDGenerator.h>
 #include <StandardDigitalSequentialIDGenerator.h>
+#include <StandardRandomizer.h>
 //std::vector<std::unique_ptr<Device>> generateData( size_t count, IDevicePresenter* presenter, AnalogDeviceFactory* factory )
 //{
 //	std::vector<std::unique_ptr<Device>> result;
@@ -38,7 +39,7 @@
 int main()
 {
 	AnalogDeviceFactory* analogFactory = new AnalogDeviceFactory( new StandardAnalogSequentialIDGenerator());
-	DigitalDeviceFactory* digitalFactory = new DigitalDeviceFactory( new StandardDigitalSequentialIDGenerator());
+	DigitalDeviceFactory* digitalFactory = new DigitalDeviceFactory( new StandardDigitalSequentialIDGenerator(), new StandardRandomizer());
 	IDevice* device1 = analogFactory->createDevice( "Analog Device 1", new DefaultDevicePresenter() );
 	device1->printInfo();
 	for ( int i = 0; i < 100; i++ )
