@@ -1,11 +1,14 @@
 #include "DigitalDevice.h"
+#include <Constants.h>
 
-DigitalDevice::DigitalDevice(std::string a_name, IDevicePresenter* presenter)
-	: Device(a_name, presenter) {
-	this->minId = 10000;
-	this->maxId = 19999;
+DigitalDevice::DigitalDevice( std::string a_name, IDevicePresenter* presenter, IIDGenerator* idGenerator )
+	: Device( a_name, presenter, idGenerator )
+{
 }
 std::string DigitalDevice::getDevicePrefix() const
 {
-	return "DD";
+	return std::string( Constants::DigitalDevice::PREFIX );
+	;
 }
+
+

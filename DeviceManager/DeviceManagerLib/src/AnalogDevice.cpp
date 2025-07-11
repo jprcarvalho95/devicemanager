@@ -1,18 +1,19 @@
 #include "AnalogDevice.h"
 #include <iomanip>
 #include <sstream> 
+#include <Constants.h>
 
-AnalogDevice::AnalogDevice(std::string a_name, IDevicePresenter* presenter)
-	: Device(a_name, presenter) {
-	this->minId = 100;
-	this->maxId = 9999;
-	// Initialize the AnalogDevice specific properties if any
-}
-
-std::string AnalogDevice::getDevicePrefix() const
+AnalogDevice::AnalogDevice(std::string a_name, IDevicePresenter* presenter, IIDGenerator* idGenerator)
+	: Device( a_name, presenter, idGenerator )
 {
-	return "AD";
+	
 }
+
+
+	std::string AnalogDevice::getDevicePrefix() const
+{
+	return std::string(Constants::AnalogDevice::PREFIX);
+	}
 
 
 

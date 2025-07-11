@@ -4,8 +4,9 @@ class DigitalDevice : public Device
 {
 public:
 
-	DigitalDevice(std::string a_name, IDevicePresenter* presenter);	
+	DigitalDevice( std::string a_name, IDevicePresenter* presenter, IIDGenerator* idGenerator );	
 	std::string getDevicePrefix() const override;
 
 };
+
 
