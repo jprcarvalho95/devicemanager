@@ -1,4 +1,4 @@
-#include "DigitalSequentialDGenerator.h"
+#include "DigitalSequentialIDGenerator.h"
 #include "Constants.h"
 
 DigitalSequentialDGenerator::DigitalSequentialDGenerator()

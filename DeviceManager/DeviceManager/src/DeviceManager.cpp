@@ -9,7 +9,8 @@
 #include <memory>
 #include <AnalogDeviceFactory.h>
 #include <DigitalDeviceFactory.h>
-
+#include <AnalogSequentialIDGenerator.h>
+#include <StandardDigitalSequentialIDGenerator.h>
 //std::vector<std::unique_ptr<Device>> generateData( size_t count, IDevicePresenter* presenter, AnalogDeviceFactory* factory )
 //{
 //	std::vector<std::unique_ptr<Device>> result;
@@ -36,13 +37,17 @@
 
 int main()
 {
-	AnalogDeviceFactory* analogFactory = new AnalogDeviceFactory( new SequentialIDGenerator(100,9999) );
-	DigitalDeviceFactory* digitalFactory = new DigitalDeviceFactory( new SequentialIDGenerator(10000,19999) );
+	AnalogDeviceFactory* analogFactory = new AnalogDeviceFactory( new StandardAnalogSequentialIDGenerator());
+	DigitalDeviceFactory* digitalFactory = new DigitalDeviceFactory( new StandardDigitalSequentialIDGenerator());
 	IDevice* device1 = analogFactory->createDevice( "Analog Device 1", new DefaultDevicePresenter() );
 	device1->printInfo();
 	for ( int i = 0; i < 100; i++ )
 	{
 		analogFactory->createDevice( "Analog Device " + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();	 
+	}
+	for ( int i = 0; i < 100; i++ )
+	{
+		digitalFactory->createDevice( "Digital Device " + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();
 	}
 	//constexpr size_t dataToGenerate = 5;
 	//std::vector<std::unique_ptr<Device>>  devices = generateData( dataToGenerate, new DefaultDevicePresenter() );
