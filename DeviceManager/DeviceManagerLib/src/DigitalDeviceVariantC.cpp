@@ -34,7 +34,7 @@ std::string DigitalDeviceVariantC::getDescription() const
 		throw std::runtime_error( "Unknown generation" );
 	}
 }
-int DigitalDeviceVariantC::getInternalPercentage()
+int DigitalDeviceVariantC::getInternalPercentage() const
 {
 	return this->_internalPercentage;
 }
@@ -48,9 +48,10 @@ std::string DigitalDeviceVariantC::updateStatus()
 	std::string status = strategy->Execute( this );
 	return status;
 }
-std::string DigitalDeviceVariantC::getStatus()  {
+std::string DigitalDeviceVariantC::getStatus() const{
 	IStatusStrategy* strategy = _availableStrategies.at( this->_generation );
-	std::string status = strategy->Peek( this );
+	const DigitalDeviceVariantC* constThis = this; // Use const pointer to call const method
+	std::string status = strategy->Peek( constThis );
 	return status;
 }
 

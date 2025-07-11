@@ -4,6 +4,6 @@
 class StrategyGen2 : public IStatusStrategy
 {
 	std::string Execute( DigitalDeviceVariantC* device );
-	std::string Peek( DigitalDeviceVariantC* device ) const override;
+	std::string Peek(const DigitalDeviceVariantC* device ) const override;
 
 };

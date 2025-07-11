@@ -18,10 +18,10 @@ public:
 		, std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*>);	
 
 	std::string updateStatus();
-	std::string getStatus();
+	std::string getStatus() const override;
 	std::string getDescription() const override;
 
-	int getInternalPercentage();
+	int getInternalPercentage() const;
 
 	void setInternalPercentage( int newPercentage );
 	

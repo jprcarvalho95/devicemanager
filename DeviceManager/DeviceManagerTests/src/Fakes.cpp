@@ -21,7 +21,7 @@ class FakeStrategyGen1 : public IStatusStrategy
 	{
 		return std::string();
 	}
-	std::string Peek( DigitalDeviceVariantC* device ) const override
+	std::string Peek(const DigitalDeviceVariantC* device ) const override
 	{
 		return std::string();
 	}

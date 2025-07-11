@@ -5,6 +5,6 @@ class StrategyGen1 : public IStatusStrategy
 {
 	// Inherited via IStatusStrategy
 	std::string Execute( DigitalDeviceVariantC* device ) override;
-	std::string Peek( DigitalDeviceVariantC* device ) const override;
+	std::string Peek(const DigitalDeviceVariantC* device ) const override;
 
 };

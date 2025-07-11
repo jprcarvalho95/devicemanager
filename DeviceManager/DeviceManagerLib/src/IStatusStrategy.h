@@ -7,5 +7,5 @@ class IStatusStrategy
 	public:
 	virtual ~IStatusStrategy() = default;
 	virtual std::string Execute( DigitalDeviceVariantC* device ) = 0;
-	virtual std::string Peek( DigitalDeviceVariantC* device ) const  = 0;
+	virtual std::string Peek(const DigitalDeviceVariantC* device ) const  = 0;
 };

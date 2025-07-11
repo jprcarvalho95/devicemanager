@@ -14,6 +14,6 @@ public:
 	DigitalDeviceVariantA( std::string a_name, IDevicePresenter* presenter, IIDGenerator* idGenerator, IRandomizer* randomizer );
 
 	std::string updateStatus();
-	std::string getStatus() const;
+	std::string getStatus() const override ;
 
 };
