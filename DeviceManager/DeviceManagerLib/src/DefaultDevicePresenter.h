@@ -13,5 +13,6 @@ public:
 
 	void PresentDeviceDescription( const IDevice& device ) override;
 
+	void PresentDeviceStatus(const DigitalDevice& device ) override;
 
 };

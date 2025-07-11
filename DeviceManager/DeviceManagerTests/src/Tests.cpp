@@ -44,7 +44,14 @@ TEST( DeviceTests, GivenADigitalDeviceVariantA_WhenTheInternalStatusIsMin_Return
 	float fakeRandomValue = -50.0f;
 	std::string expectedValue = "Low";
 
-	DigitalDeviceFactory* factory = new DigitalDeviceFactory( new StandardDigitalSequentialIDGenerator(), new FakeRandomizer( fakeRandomValue ) );
+		std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies;
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen1, new FakeStrategyGen1() } );
+
+	DigitalDeviceFactory* factory = new DigitalDeviceFactory(
+		new StandardDigitalSequentialIDGenerator()
+		, new FakeRandomizer( fakeRandomValue )
+		, strategies
+	);
 
 	auto device = factory->createVariantA( "Digital Device Variant A 1", new DefaultDevicePresenter() );
 	EXPECT_EQ( device->getStatus(), expectedValue );
@@ -55,8 +62,13 @@ TEST( DeviceTests, GivenADigitalDeviceVariantA_WhenTheInternalStatusIsMaxed_Retu
 {
 	float fakeRandomValue = 70.0f;
 	std::string expectedValue = "High";
-
-	DigitalDeviceFactory* factory = new DigitalDeviceFactory( new StandardDigitalSequentialIDGenerator(), new FakeRandomizer( fakeRandomValue ) );
+	std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies;
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen1, new FakeStrategyGen1() } );
+	DigitalDeviceFactory* factory = new DigitalDeviceFactory(
+		new StandardDigitalSequentialIDGenerator()
+		, new FakeRandomizer( fakeRandomValue )
+		, strategies
+	);
 
 	auto device = factory->createVariantA( "Digital Device Variant A 1", new DefaultDevicePresenter() );
 	EXPECT_EQ( device->getStatus(), expectedValue );
@@ -65,7 +77,13 @@ TEST( DeviceTests, GivenADigitalDeviceVariantA_WhenTheInternalStatusIsMaxed_Retu
 TEST( DeviceTests, GivenADigitalDeviceVariantA_WhenTheInternalStatusIsWithinBounds_ReturnInternalStatus )
 {
 	float expectedValue = 25.0f;
-	DigitalDeviceFactory* factory = new DigitalDeviceFactory( new StandardDigitalSequentialIDGenerator(), new FakeRandomizer( expectedValue ) );
+	std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies;
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen1, new FakeStrategyGen1() } );
+
+	DigitalDeviceFactory* factory = new DigitalDeviceFactory(
+		new StandardDigitalSequentialIDGenerator()
+		, new FakeRandomizer( expectedValue )
+		, strategies );
 
 	auto device = factory->createVariantA( "Digital Device Variant A 1", new DefaultDevicePresenter() );
 	EXPECT_EQ( device->getStatus(), "25.0" );
@@ -73,10 +91,13 @@ TEST( DeviceTests, GivenADigitalDeviceVariantA_WhenTheInternalStatusIsWithinBoun
 TEST( DeviceTests, GivenADigitalDeviceVariantB_WhenTheInternalStatusIsOn_ReturnOn)
 {
 	std::string expectedValue = "On";
+	std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies;
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen1, new FakeStrategyGen1() } );
 
 	DigitalDeviceFactory* factory = new DigitalDeviceFactory(
 		new StandardDigitalSequentialIDGenerator()
-		, new FakeRandomizer(1)
+		, new FakeRandomizer(1),
+		strategies
 	);
 
 	auto device = factory->createVariantB( "Digital Device Variant B 1", new DefaultDevicePresenter() );
@@ -87,9 +108,13 @@ TEST( DeviceTests, GivenADigitalDeviceVariantB_WhenTheInternalStatusIsOn_ReturnO
 TEST( DeviceTests, GivenADigitalDeviceVariantB_WhenTheInternalStatusIsOff_ReturnOff )
 {
 	std::string expectedValue = "Off";
+	std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies;
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen1, new FakeStrategyGen1() } );
 
 	DigitalDeviceFactory* factory = new DigitalDeviceFactory(
-		new StandardDigitalSequentialIDGenerator(), new FakeRandomizer( 1 ) );
+		new StandardDigitalSequentialIDGenerator()
+		, new FakeRandomizer( 1 )
+		,strategies );
 
 	auto device = factory->createVariantB( "Digital Device Variant B 1", new DefaultDevicePresenter() );
 	//This flips the internal status

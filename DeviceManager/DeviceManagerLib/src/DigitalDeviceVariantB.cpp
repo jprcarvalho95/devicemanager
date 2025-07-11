@@ -5,8 +5,15 @@ DigitalDeviceVariantB::DigitalDeviceVariantB( std::string a_name, IDevicePresent
 {
 }
 
-std::string DigitalDeviceVariantB::getStatus() 
+
+std::string DigitalDeviceVariantB::updateStatus()
 {
 	_internalStatus = !_internalStatus; // Toggle status for demonstration
+	return getStatus();
+}
+
+
+std::string DigitalDeviceVariantB::getStatus() const
+{
 	return _internalStatus ? "On" : "Off";
 }

@@ -7,5 +7,6 @@ private:
 
 public:
 	DigitalDeviceVariantB( std::string a_name, IDevicePresenter* presenter, IIDGenerator* idGenerator );
-	std::string getStatus();
+	std::string getStatus() const;
+	std::string updateStatus();
 };

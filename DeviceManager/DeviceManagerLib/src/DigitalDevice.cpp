@@ -11,4 +11,11 @@ std::string DigitalDevice::getDevicePrefix() const
 	;
 }
 
-
+std::string DigitalDevice::getStatus() const
+{
+	return "Digital Device Status"; // Placeholder implementation
+}
+std::string DigitalDevice::updateStatus()
+{
+	return "Digital Device Updated Status"; // Placeholder implementation
+}

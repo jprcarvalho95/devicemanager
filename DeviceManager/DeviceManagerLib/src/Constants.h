@@ -1,4 +1,5 @@
 #pragma once
+#include <string_view>
 namespace Constants {
 	namespace AnalogDevice
 	{
@@ -8,6 +9,10 @@ namespace Constants {
 	}
 	namespace DigitalDevice
 	{
+		enum class Generation{
+			Gen1,
+			Gen2
+		};
 		enum class Variant
 		{
 			VariantA,

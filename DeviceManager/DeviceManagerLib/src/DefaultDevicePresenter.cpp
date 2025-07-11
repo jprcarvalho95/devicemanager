@@ -20,3 +20,8 @@ void DefaultDevicePresenter::PresentDeviceDescription(const IDevice& device)
 {
 	std::cout << " - " << device.getDescription() << "\n";
 }
+
+void IDevicePresenter::PresentDeviceStatus(const DigitalDevice& device )
+{
+	std::cout << " - " << device.getStatus() << "\n";
+}

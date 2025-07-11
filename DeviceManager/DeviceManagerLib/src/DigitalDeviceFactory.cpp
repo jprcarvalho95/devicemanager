@@ -14,3 +14,7 @@ DigitalDeviceVariantB* DigitalDeviceFactory::createVariantB( const std::string& 
 {
 	return new DigitalDeviceVariantB( name, presenter, this->getIdGenerator());
 }
+DigitalDeviceVariantC* DigitalDeviceFactory::createVariantC( const std::string& name, IDevicePresenter* presenter )
+{	
+	return new DigitalDeviceVariantC(name, presenter, this->getIdGenerator(), _strategies );
+}

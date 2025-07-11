@@ -12,6 +12,8 @@
 #include <AnalogSequentialIDGenerator.h>
 #include <StandardDigitalSequentialIDGenerator.h>
 #include <StandardRandomizer.h>
+#include <StrategyGen1.h>
+#include <StrategyGen2.h>
 //std::vector<std::unique_ptr<Device>> generateData( size_t count, IDevicePresenter* presenter, AnalogDeviceFactory* factory )
 //{
 //	std::vector<std::unique_ptr<Device>> result;
@@ -38,8 +40,17 @@
 
 int main()
 {
+	std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies;
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen1, new StrategyGen1() } );
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen2, new StrategyGen2() } );
+
 	AnalogDeviceFactory* analogFactory = new AnalogDeviceFactory( new StandardAnalogSequentialIDGenerator());
-	DigitalDeviceFactory* digitalFactory = new DigitalDeviceFactory( new StandardDigitalSequentialIDGenerator(), new StandardRandomizer());
+
+	DigitalDeviceFactory* digitalFactory = new DigitalDeviceFactory(
+		  new StandardDigitalSequentialIDGenerator()
+		, new StandardRandomizer()
+		, strategies);
+
 	IDevice* device1 = analogFactory->createDevice( "Analog Device 1", new DefaultDevicePresenter() );
 	device1->printInfo();
 	for ( int i = 0; i < 100; i++ )
@@ -50,6 +61,12 @@ int main()
 	{
 		digitalFactory->createDevice( "Digital Device " + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();
 	}
+
+	for (int i = 0; i < 100; i++ )
+	{
+		digitalFactory->createVariantC( "Digital Device Variant C" + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();
+	}
+
 	//constexpr size_t dataToGenerate = 5;
 	//std::vector<std::unique_ptr<Device>>  devices = generateData( dataToGenerate, new DefaultDevicePresenter() );
 	//showData( devices );
