@@ -6,10 +6,11 @@
 #include "Fakes.cpp"
 #include "SequentialIDGenerator.h"
 #include "StandardDigitalSequentialIDGenerator.h"
+#include "StrategyGen1.h"
+#include "StrategyGen2.h"
+#include "array"
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include "StrategyGen2.h"
-#include "StrategyGen1.h"
 using namespace testing;
 
 
@@ -141,6 +142,7 @@ TEST( DeviceTests_Digital_VariantC, GivenANewDigitalDeviceVariantC_WhenTheDescri
 
 	std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies;
 	strategies.insert( { Constants::DigitalDevice::Generation::Gen1, new StrategyGen1() } );
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen2, new StrategyGen2() } );
 
 	DigitalDeviceFactory* factory = new DigitalDeviceFactory(
 		new FakeIdGenerator( fakeID, Constants::DigitalDevice::MAX_ID ), new FakeRandomizer( 1 ), strategies );
@@ -159,6 +161,7 @@ TEST( DeviceTests_Digital_VariantC, GivenANewDigitalDeviceVariantCGen2_WhenTheDe
 
 	std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies;
 	strategies.insert( { Constants::DigitalDevice::Generation::Gen1, new StrategyGen1() } );
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen2, new StrategyGen2() } );
 
 	DigitalDeviceFactory* factory = new DigitalDeviceFactory(
 		new FakeIdGenerator( fakeID, Constants::DigitalDevice::MAX_ID ), new FakeRandomizer( 1 ), strategies );
@@ -167,15 +170,66 @@ TEST( DeviceTests_Digital_VariantC, GivenANewDigitalDeviceVariantCGen2_WhenTheDe
 
 	EXPECT_EQ( device->getDescription(), expectedValue );
 }
-TEST( DeviceTests_Digital_VariantC, GivenANewDigitalDeviceVariantCGen2_WhenTheStatusIsUpdated_Then1PercentIsAdded)
+TEST( DeviceTests_Digital_VariantC, GivenANewDigitalDeviceVariantCGen2_WhenTheStatusIsUpdated_Then1PercentIsAdded )
 {
+
+	std::string opened = std::string { Constants::DigitalDevice::OPENED };
+	std::string closed = std::string { Constants::DigitalDevice::CLOSED };
+
+	// This array was auto-generated
+	// instead of using a loop to generate the expected values
+	// in order to make it easier to read
+	std::array<std::string, 101> expectedValues {
+		opened, "1%", "2%", "3%", "4%", "5%", "6%", "7%", "8%", "9%", "10%",
+		"11%", "12%", "13%", "14%", "15%", "16%", "17%", "18%", "19%", "20%",
+		"21%", "22%", "23%", "24%", "25%", "26%", "27%", "28%", "29%", "30%",
+		"31%", "32%", "33%", "34%", "35%", "36%", "37%", "38%", "39%", "40%",
+		"41%", "42%", "43%", "44%", "45%", "46%", "47%", "48%", "49%", "50%",
+		"51%", "52%", "53%", "54%", "55%", "56%", "57%", "58%", "59%", "60%",
+		"61%", "62%", "63%", "64%", "65%", "66%", "67%", "68%", "69%", "70%",
+		"71%", "72%", "73%", "74%", "75%", "76%", "77%", "78%", "79%", "80%",
+		"81%", "82%", "83%", "84%", "85%", "86%", "87%", "88%", "89%", "90%",
+		"91%", "92%", "93%", "94%", "95%", "96%", "97%", "98%", "99%", closed
+	};
+
+	std::array<std::string, 101> obtainedValues;
 
 	int fakeID = 17000; // This ID is above the threshold for Gen2
 
-	std::string expectedValue =
-		std::string { Constants::DigitalDevice::PREFIX } + std::to_string( fakeID ) + std::string { Constants::DigitalDevice::GEN2_OUTPUT_MODIFIER };
+	std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies;
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen1, new StrategyGen1() } );
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen2, new StrategyGen2() } );
+
+	DigitalDeviceFactory* factory = new DigitalDeviceFactory(
+		new FakeIdGenerator( fakeID, Constants::DigitalDevice::MAX_ID ), new FakeRandomizer( 1 ), strategies );
+
+	auto device = factory->createVariantC( "Digital Device Variant C 1 GEN 2", new DefaultDevicePresenter() );
+	obtainedValues[0] = device->getStatus();
+	for ( int i = 1; i < 101; ++i )
+	{
+		obtainedValues[i] = device->updateStatus();
+	}
+
+	for ( int i = 0; i < 101; ++i )
+	{
+		EXPECT_EQ( obtainedValues[i], expectedValues[i] );
+	}
+}
+
+TEST( DeviceTests_Digital_VariantC, GivenANewDigitalDeviceVariantCGen1_WhenTheStatusIsUpdated_Then10PercentIsAdded )
+{
+
+	std::array<std::string, 11> expectedValues {
+		"0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"
+	};
+
+	std::array<std::string, 11> obtainedValues;
+
+	// This ID is below the threshold for Gen2
+	int fakeID = Constants::DigitalDevice::ID_GEN1_CAP - 1;
 
 	std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies;
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen1, new StrategyGen1() } );
 	strategies.insert( { Constants::DigitalDevice::Generation::Gen2, new StrategyGen2() } );
 
 	DigitalDeviceFactory* factory = new DigitalDeviceFactory(
@@ -183,9 +237,61 @@ TEST( DeviceTests_Digital_VariantC, GivenANewDigitalDeviceVariantCGen2_WhenTheSt
 
 	auto device = factory->createVariantC( "Digital Device Variant C 1 GEN 2", new DefaultDevicePresenter() );
 
-	auto originalStatus = device->getStatus();
-	auto updatedStatus = device->updateStatus();
+	obtainedValues[0] = device->getStatus();
+	for ( int i = 1; i < 11; ++i )
+	{
+		obtainedValues[i] = device->updateStatus();
+	}
 
-	EXPECT_EQ( originalStatus, std::string { Constants::DigitalDevice::OPENED } );
-	EXPECT_EQ( updatedStatus, "1%" );
+	for ( int i = 0; i < 11; ++i )
+	{
+		EXPECT_EQ( obtainedValues[i], expectedValues[i] );
+	}
+}
+
+
+TEST( DeviceTests_Digital_VariantC, GivenAClosedDigitalDeviceVariantCGen2_WhenTheStatusIsUpdated_ThenItStaysClosed )
+{
+
+	int fakeID = Constants::DigitalDevice::ID_GEN1_CAP + 1; // This ID is above the threshold for Gen2
+
+	std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies;
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen1, new StrategyGen1() } );
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen2, new StrategyGen2() } );
+
+	DigitalDeviceFactory* factory = new DigitalDeviceFactory(
+		new FakeIdGenerator( fakeID, Constants::DigitalDevice::MAX_ID ), new FakeRandomizer( 1 ), strategies );
+
+	auto device = factory->createVariantC( "Digital Device Variant C 1 GEN 2", new DefaultDevicePresenter() );
+	device->setInternalPercentage( 100 ); // Set to closed state
+
+	std::string initialStatus = device->getStatus();
+	std::string updatedStatus = device->updateStatus();
+
+	EXPECT_EQ( initialStatus, std::string{Constants::DigitalDevice::CLOSED } );
+	EXPECT_EQ( initialStatus, updatedStatus );
+
+
+}
+
+TEST( DeviceTests_Digital_VariantC, GivenA100PercentDigitalDeviceVariantCGen1_WhenTheStatusIsUpdated_ThenTheStatusIs100Percent )
+{
+
+	int fakeID = Constants::DigitalDevice::ID_GEN1_CAP - 1 ; // This ID is below the threshold for Gen2
+
+	std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies;
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen1, new StrategyGen1() } );
+	strategies.insert( { Constants::DigitalDevice::Generation::Gen2, new StrategyGen2() } );
+
+	DigitalDeviceFactory* factory = new DigitalDeviceFactory(
+		new FakeIdGenerator( fakeID, Constants::DigitalDevice::MAX_ID ), new FakeRandomizer( 1 ), strategies );
+
+	auto device = factory->createVariantC( "Digital Device Variant C 1 GEN 1", new DefaultDevicePresenter() );
+	device->setInternalPercentage( 100 );
+
+	std::string initialStatus = device->getStatus();
+	std::string updatedStatus = device->updateStatus();
+
+	EXPECT_EQ( initialStatus, "100%" );
+	EXPECT_EQ( initialStatus, updatedStatus );
 }

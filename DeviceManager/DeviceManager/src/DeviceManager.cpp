@@ -14,29 +14,35 @@
 #include <StandardRandomizer.h>
 #include <StrategyGen1.h>
 #include <StrategyGen2.h>
-//std::vector<std::unique_ptr<Device>> generateData( size_t count, IDevicePresenter* presenter, AnalogDeviceFactory* factory )
-//{
-//	std::vector<std::unique_ptr<Device>> result;
-//
-//	for ( size_t current = 0; current < count; ++current )
-//	{
-//		const std::string deviceName = "device " + std::to_string( current );
-//		const std::string desc = "this is dev no " + std::to_string( current );
-//
-//		auto device = factory->createDevice( deviceName, presenter );
-//		result.push_back( std::make_unique<AnalogDevice>( deviceName, presenter ) );
-//		   
-// 	}
-//	return result;
-//}
+std::vector<std::unique_ptr<IDevice>> generateData( size_t count
+	, IDevicePresenter* presenter
+	, AnalogDeviceFactory* analogFactory
+	, DigitalDeviceFactory* digitalFactory)
+{
+	std::vector<std::unique_ptr<IDevice>> result;
 
-//void showData( const std::vector<std::unique_ptr<Device>>& devices )
-//{
-//	for ( const auto& device : devices )
-//	{
-//		device->printInfo();
-//	}
-//}
+	for ( size_t current = 0; current < count; ++current )
+	{
+		const std::string deviceName = "Device " + std::to_string( current );
+
+		IDevice* analogDevice1 = analogFactory->createDevice( deviceName, presenter );
+		IDevice* digitalDevice1 = digitalFactory->createDevice( deviceName, presenter );
+		IDevice* digitalDeviceVariantA = digitalFactory->createVariantA( deviceName, presenter );
+		IDevice* digitalDeviceVariantB = digitalFactory->createVariantB( deviceName, presenter );
+		IDevice* digitalDeviceVariantC = digitalFactory->createVariantC( deviceName, presenter );
+
+
+ 	}
+	return result;
+}
+
+void showData( const std::vector<std::unique_ptr<IDevice>>& devices )
+{
+	for ( const auto& device : devices )
+	{
+		device->printInfo();
+	}
+}
 
 int main()
 {
@@ -51,24 +57,28 @@ int main()
 		, new StandardRandomizer()
 		, strategies);
 
-	IDevice* device1 = analogFactory->createDevice( "Analog Device 1", new DefaultDevicePresenter() );
-	device1->printInfo();
-	for ( int i = 0; i < 100; i++ )
-	{
-		analogFactory->createDevice( "Analog Device " + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();	 
-	}
-	for ( int i = 0; i < 100; i++ )
-	{
-		digitalFactory->createDevice( "Digital Device " + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();
-	}
+	//IDevice* device1 = analogFactory->createDevice( "Analog Device 1", new DefaultDevicePresenter() );
+	//device1->printInfo();
+	//for ( int i = 0; i < 100; i++ )
+	//{
+	//	analogFactory->createDevice( "Analog Device " + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();	 
+	//}
+	//for ( int i = 0; i < 100; i++ )
+	//{
+	//	digitalFactory->createDevice( "Digital Device " + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();
+	//}
 
-	for (int i = 0; i < 100; i++ )
-	{
-		digitalFactory->createVariantC( "Digital Device Variant C" + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();
-	}
+	//for (int i = 0; i < 100; i++ )
+	//{
+	//	digitalFactory->createVariantC( "Digital Device Variant C" + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();
+	//}
 
-	//constexpr size_t dataToGenerate = 5;
-	//std::vector<std::unique_ptr<Device>>  devices = generateData( dataToGenerate, new DefaultDevicePresenter() );
-	//showData( devices );
+	constexpr size_t dataToGenerate = 5;
+	std::vector<std::unique_ptr<IDevice>>  devices = generateData( dataToGenerate
+		, new DefaultDevicePresenter()
+		, analogFactory
+		, digitalFactory
+	);
+	showData( devices );
 
 }

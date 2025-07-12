@@ -18,3 +18,4 @@ DigitalDeviceVariantC* DigitalDeviceFactory::createVariantC( const std::string& 
 {	
 	return new DigitalDeviceVariantC(name, presenter, this->getIdGenerator(), _strategies );
 }
+

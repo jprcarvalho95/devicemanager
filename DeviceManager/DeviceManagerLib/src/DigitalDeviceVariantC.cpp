@@ -14,7 +14,7 @@ DigitalDeviceVariantC::DigitalDeviceVariantC(
 {
 	_availableStrategies = strategies;
 
-	if ( this->getDeviceID() >= 15000 )
+	if ( this->getDeviceID() >= Constants::DigitalDevice::ID_GEN1_CAP )
 	{
 		_generation = Constants::DigitalDevice::Generation::Gen2;
 	}
