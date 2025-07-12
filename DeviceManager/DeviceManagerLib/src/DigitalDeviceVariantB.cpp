@@ -1,8 +1,9 @@
-#include <DigitalDeviceVariantB.h>
+#include "DigitalDeviceVariantB.h"
 
 DigitalDeviceVariantB::DigitalDeviceVariantB( std::string a_name, IDevicePresenter* presenter, IIDGenerator* idGenerator )
 	: DigitalDevice( a_name, presenter, idGenerator )
 {
+	_internalStatus = false;
 }
 
 

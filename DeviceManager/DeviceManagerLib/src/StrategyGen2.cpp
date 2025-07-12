@@ -1,5 +1,6 @@
-#include <DigitalDeviceVariantC.h>
-#include <StrategyGen2.h>
+#include "StrategyGen2.h"
+#include "DigitalDeviceVariantC.h"
+#include <string>
 
 std::string StrategyGen2::Execute( DigitalDeviceVariantC* device )
 {
@@ -13,21 +14,22 @@ std::string StrategyGen2::Execute( DigitalDeviceVariantC* device )
 	}
 	device->setInternalPercentage( currentPercentage );
 
+	return Peek( device ); 
 }
 
-std::string StrategyGen2::Peek(const DigitalDeviceVariantC* device ) const {
+std::string StrategyGen2::Peek( const DigitalDeviceVariantC* device ) const
+{
 
 	int currentPercentage = device->getInternalPercentage();
 
 	if ( currentPercentage == 0 )
 	{
-		return "Opened";
+		return std::string( Constants::DigitalDevice::OPENED );
 	}
 	else if ( currentPercentage == 100 )
 	{
-		return "Closed";
+		return std::string( Constants::DigitalDevice::CLOSED );
 	}
 
 	return std::to_string( currentPercentage ) + "%";
-
 }

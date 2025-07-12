@@ -1,6 +1,6 @@
 #pragma once
-#include <IDevice.h>
-#include <IDevicePresenter.h>
+#include "IDevice.h"
+#include "IDevicePresenter.h"
 #include "IIDGenerator.h"
 class IDeviceFactory
 {

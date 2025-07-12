@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON CACHE BOOL "It is required to use C++20." FOR
 set(CMAKE_CXX_EXTENSIONS OFF CACHE BOOL "Compiler specific extensions are disabled." FORCE)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "Always build static libraries." FORCE)
 set(INSTALL_GTEST OFF CACHE BOOL "Do not install GoogleTest." FORCE)
-
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(FetchContent)
 FetchContent_Declare(

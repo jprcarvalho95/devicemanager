@@ -1,8 +1,11 @@
 #pragma once
-#include <DigitalDevice.h>
+#include "DigitalDevice.h"
 #include <unordered_map>
-#include <IStatusStrategy.h>
-#include <Constants.h>
+#include "Constants.h"
+#include "IStatusStrategy.h"
+#include "IIDGenerator.h"
+#include "IDevicePresenter.h"
+
 class DigitalDeviceVariantC : public DigitalDevice
 {
 private:
@@ -15,11 +18,13 @@ public:
 		  std::string a_name
 		, IDevicePresenter* presenter
 		, IIDGenerator* idGenerator
-		, std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*>);	
+		, std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*>
+
+	);	
 
 	std::string updateStatus();
 	std::string getStatus() const override;
-	std::string getDescription() const override;
+	std::string getDescription() const;
 
 	int getInternalPercentage() const;
 

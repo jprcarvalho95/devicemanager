@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
-#include <DigitalDevice.h>
-#include <DigitalDeviceVariantC.h>
+// Forward declaration to avoid circular dependency	
+class DigitalDeviceVariantC;
+
 class IStatusStrategy
 {
 	public:

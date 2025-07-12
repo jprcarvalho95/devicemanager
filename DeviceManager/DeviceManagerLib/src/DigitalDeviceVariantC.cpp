@@ -1,10 +1,15 @@
-#include <Constants.h>
-#include <DigitalDeviceVariantC.h>
-#include <IStatusStrategy.h>
+#include "Constants.h"
+#include "DigitalDeviceVariantC.h"
+#include "IStatusStrategy.h"
 #include <stdexcept>
+#include "IIDGenerator.h"
+#include "IDevicePresenter.h"
 
 DigitalDeviceVariantC::DigitalDeviceVariantC(
-	std::string a_name, IDevicePresenter* presenter, IIDGenerator* idGenerator, std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies )
+	  std::string a_name
+	, IDevicePresenter* presenter
+	, IIDGenerator* idGenerator
+	, std::unordered_map<Constants::DigitalDevice::Generation, IStatusStrategy*> strategies )
 	: DigitalDevice( a_name, presenter, idGenerator )
 {
 	_availableStrategies = strategies;
@@ -27,7 +32,7 @@ std::string DigitalDeviceVariantC::getDescription() const
 	}
 	else if ( this->_generation == Constants::DigitalDevice::Generation::Gen2 )
 	{
-		return DigitalDevice::getDescription() + " (Gen 2)";
+		return DigitalDevice::getDescription() + std::string { Constants::DigitalDevice::GEN2_OUTPUT_MODIFIER };
 	}
 	else
 	{

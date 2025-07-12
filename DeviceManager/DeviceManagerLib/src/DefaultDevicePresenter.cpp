@@ -1,6 +1,9 @@
 #include "DefaultDevicePresenter.h"
 #include <iostream>
 #include <iomanip>
+#include "IDevice.h"
+#include "DigitalDevice.h"
+#include "IDevicePresenter.h"
 DefaultDevicePresenter::DefaultDevicePresenter()
 	: IDevicePresenter()
 {
@@ -21,7 +24,3 @@ void DefaultDevicePresenter::PresentDeviceDescription(const IDevice& device)
 	std::cout << " - " << device.getDescription() << "\n";
 }
 
-void IDevicePresenter::PresentDeviceStatus(const DigitalDevice& device )
-{
-	std::cout << " - " << device.getStatus() << "\n";
-}

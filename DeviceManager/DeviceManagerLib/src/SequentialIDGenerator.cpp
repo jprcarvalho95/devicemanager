@@ -1,6 +1,6 @@
 #include "SequentialIDGenerator.h"
 #include <stdexcept>
-#include <IDevice.h>
+#include "IDevice.h"
  
 SequentialIDGenerator::SequentialIDGenerator(unsigned int minId, unsigned int maxId) {
 	_minId = minId;

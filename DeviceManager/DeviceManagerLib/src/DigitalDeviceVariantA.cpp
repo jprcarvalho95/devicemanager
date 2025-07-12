@@ -1,6 +1,9 @@
 #include "DigitalDeviceVariantA.h"
 #include <iomanip>
 #include <sstream>
+#include "IDevicePresenter.h"
+#include "IRandomizer.h"
+
 DigitalDeviceVariantA::DigitalDeviceVariantA( std::string a_name
 	, IDevicePresenter* presenter
 	, IIDGenerator* idGenerator
@@ -9,6 +12,8 @@ DigitalDeviceVariantA::DigitalDeviceVariantA( std::string a_name
 	: DigitalDevice( a_name, presenter, idGenerator )
 {
 	_randomizer = randomizer;
+	// Generate an initial random status value
+	updateStatus();
 }
 
 std::string DigitalDeviceVariantA::updateStatus()
@@ -16,6 +21,7 @@ std::string DigitalDeviceVariantA::updateStatus()
 	// Generate a random float between -50.0 and 70.0
 	float randomValue = _randomizer->getRandomFloat( -50.0f, 70.0f );
 	this->_internalStatus = randomValue;
+	return std::to_string( this->_internalStatus );
 }
 
 std::string DigitalDeviceVariantA::getStatus() const

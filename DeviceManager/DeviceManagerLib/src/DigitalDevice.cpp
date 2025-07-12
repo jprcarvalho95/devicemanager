@@ -1,5 +1,5 @@
 #include "DigitalDevice.h"
-#include <Constants.h>
+#include "Constants.h"
 
 DigitalDevice::DigitalDevice( std::string a_name, IDevicePresenter* presenter, IIDGenerator* idGenerator )
 	: Device( a_name, presenter, idGenerator )

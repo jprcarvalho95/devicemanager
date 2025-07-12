@@ -1,7 +1,7 @@
 #pragma once
-#include <DigitalDevice.h>
-#include <Constants.h>
-#include <IRandomizer.h>
+#include "DigitalDevice.h"
+#include "Constants.h"
+#include "IRandomizer.h"
 class DigitalDeviceVariantA : public DigitalDevice
 {
 private:

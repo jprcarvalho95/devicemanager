@@ -1,5 +1,6 @@
-#include <IDevicePresenter.h>
-#include <IDevice.h>
+#pragma once
+#include "IDevicePresenter.h"
+#include "IDevice.h"
 class DefaultDevicePresenter : public IDevicePresenter 
 {
 public:
@@ -12,7 +13,5 @@ public:
 	void PresentDeviceID( const IDevice& device ) override;
 
 	void PresentDeviceDescription( const IDevice& device ) override;
-
-	void PresentDeviceStatus(const DigitalDevice& device ) override;
 
 };

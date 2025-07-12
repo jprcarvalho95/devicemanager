@@ -1,11 +1,13 @@
 #pragma once
 #include "IDeviceFactory.h"
-#include <DigitalDeviceVariantA.h>
-#include <DigitalDeviceVariantB.h>
+#include "DigitalDeviceVariantA.h"
+#include "DigitalDeviceVariantB.h"
 #include <unordered_map>
-#include <Constants.h>
-#include <IStatusStrategy.h>
-#include <DigitalDeviceVariantC.h>
+#include "Constants.h"
+#include "IStatusStrategy.h"
+#include "DigitalDeviceVariantC.h"
+#include "IRandomizer.h"
+
 class DigitalDeviceFactory : public IDeviceFactory
 {
 

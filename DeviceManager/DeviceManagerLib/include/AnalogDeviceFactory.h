@@ -1,7 +1,7 @@
 #pragma once
 #include "IDeviceFactory.h"
-#include <AnalogDevice.h>
-#include <IDevice.h>
+#include "AnalogDevice.h"
+#include "IDevice.h"
 class AnalogDeviceFactory : public IDeviceFactory
 {
 public:

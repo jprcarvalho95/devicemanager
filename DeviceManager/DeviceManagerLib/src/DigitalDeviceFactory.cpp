@@ -1,5 +1,5 @@
-#include <DigitalDevice.h>
-#include <DigitalDeviceFactory.h>
+#include "DigitalDevice.h"
+#include "DigitalDeviceFactory.h"
 
 IDevice* DigitalDeviceFactory::createDevice( const std::string& name, IDevicePresenter* presenter )
 {

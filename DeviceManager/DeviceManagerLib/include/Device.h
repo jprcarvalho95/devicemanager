@@ -1,7 +1,7 @@
 #pragma once
-
 #include <string>
-#include <IDevicePresenter.h>
+#include "IDevice.h"
+#include "IDevicePresenter.h"
 #include <IIDGenerator.h>
 
 class Device : public IDevice

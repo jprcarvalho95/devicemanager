@@ -1,4 +1,6 @@
 #include "StrategyGen1.h"
+#include "DigitalDeviceVariantC.h"
+#include <string>
 
  
 
@@ -13,7 +15,8 @@ std::string StrategyGen1::Execute( DigitalDeviceVariantC* device )
 		currentPercentage = 100;
 	}
 	device->setInternalPercentage(currentPercentage);
-	return std::to_string( currentPercentage ) + "%";
+
+	return Peek( device );
 
 }
 std::string StrategyGen1::Peek(const DigitalDeviceVariantC* device  ) const

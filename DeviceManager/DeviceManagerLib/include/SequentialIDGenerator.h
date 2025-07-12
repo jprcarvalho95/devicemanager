@@ -1,6 +1,6 @@
 #pragma once
 #include "IIDGenerator.h"
-#include <IDevice.h>
+#include "IDevice.h"
 class SequentialIDGenerator :public IIDGenerator
 {
 
