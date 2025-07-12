@@ -1,13 +1,10 @@
 #include <iostream>
 #include "Device.h"
-#include "Globals.h"
 #include <iomanip>
 #include <sstream>
 #include "IDevicePresenter.h"
 #include "IDevice.h"
 #include "IIDGenerator.h"
-
-
 
 Device::Device( std::string a_name, IDevicePresenter* presenter, IIDGenerator* idGenerator )
 	: m_name( a_name )

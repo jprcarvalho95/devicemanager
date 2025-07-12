@@ -25,12 +25,16 @@ std::vector<std::unique_ptr<IDevice>> generateData( size_t count
 	{
 		const std::string deviceName = "Device " + std::to_string( current );
 
-		IDevice* analogDevice1 = analogFactory->createDevice( deviceName, presenter );
-		IDevice* digitalDevice1 = digitalFactory->createDevice( deviceName, presenter );
-		IDevice* digitalDeviceVariantA = digitalFactory->createVariantA( deviceName, presenter );
-		IDevice* digitalDeviceVariantB = digitalFactory->createVariantB( deviceName, presenter );
-		IDevice* digitalDeviceVariantC = digitalFactory->createVariantC( deviceName, presenter );
-
+		std::unique_ptr<IDevice> analogDevice1 = analogFactory->createDevice( deviceName, presenter );
+		std::unique_ptr<IDevice> digitalDevice1 = digitalFactory->createDevice( deviceName, presenter );
+		std::unique_ptr<IDevice> digitalDeviceVariantA = digitalFactory->createVariantA( deviceName, presenter );
+		std::unique_ptr<IDevice> digitalDeviceVariantB = digitalFactory->createVariantB( deviceName, presenter );
+		std::unique_ptr<IDevice> digitalDeviceVariantC = digitalFactory->createVariantC( deviceName, presenter );
+		result.push_back( std::move( analogDevice1 ) );
+		result.push_back( std::move( digitalDevice1 ) );
+		result.push_back( std::move( digitalDeviceVariantA ) );
+		result.push_back( std::move( digitalDeviceVariantB ) );
+		result.push_back( std::move( digitalDeviceVariantC ) );	
 
  	}
 	return result;
