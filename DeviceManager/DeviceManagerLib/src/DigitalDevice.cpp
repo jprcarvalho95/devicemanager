@@ -5,6 +5,11 @@ DigitalDevice::DigitalDevice( std::string a_name, IDevicePresenter* presenter, I
 	: Device( a_name, presenter, idGenerator )
 {
 }
+void DigitalDevice::printInfo() const
+{
+	_presenter->printInfo( *this );
+}
+
 std::string DigitalDevice::getDevicePrefix() const
 {
 	return std::string( Constants::DigitalDevice::PREFIX );

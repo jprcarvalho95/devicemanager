@@ -8,19 +8,17 @@ DefaultDevicePresenter::DefaultDevicePresenter()
 	: IDevicePresenter()
 {
 }
-
-void DefaultDevicePresenter::PresentDeviceName(const IDevice& device)
+void DefaultDevicePresenter::printInfo( const IDevice& device )
 {
-	std::cout << " - " << device.getName() << "\n";
+	std::cout << " - Device Name: " << device.getName() << "\n";
+	std::cout << " - Device Id: " << device.getDeviceID() << "\n";
+	std::cout << " - Device Description: " << device.getDescription() << "\n";
 }
 
-void DefaultDevicePresenter::PresentDeviceID(const IDevice& device)
+void DefaultDevicePresenter::printInfo( const DigitalDevice& device )
 {
-	std::cout << " - " << device.getDeviceID() << "\n";
-}
+	const IDevice& baseDevice = device;
+	DefaultDevicePresenter::printInfo( baseDevice );
 
-void DefaultDevicePresenter::PresentDeviceDescription(const IDevice& device)
-{
-	std::cout << " - " << device.getDescription() << "\n";
+	std::cout << " - Device Status: " + device.getStatus() + "\n";
 }
-

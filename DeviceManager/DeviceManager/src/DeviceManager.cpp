@@ -14,6 +14,7 @@
 #include <StandardRandomizer.h>
 #include <StrategyGen1.h>
 #include <StrategyGen2.h>
+#include <iostream>
 std::vector<std::unique_ptr<IDevice>> generateData( size_t count
 	, IDevicePresenter* presenter
 	, AnalogDeviceFactory* analogFactory
@@ -23,13 +24,13 @@ std::vector<std::unique_ptr<IDevice>> generateData( size_t count
 
 	for ( size_t current = 0; current < count; ++current )
 	{
-		const std::string deviceName = "Device " + std::to_string( current );
+		const std::string deviceName = " Device " + std::to_string( current );
 
-		std::unique_ptr<IDevice> analogDevice1 = analogFactory->createDevice( deviceName, presenter );
-		std::unique_ptr<IDevice> digitalDevice1 = digitalFactory->createDevice( deviceName, presenter );
-		std::unique_ptr<IDevice> digitalDeviceVariantA = digitalFactory->createVariantA( deviceName, presenter );
-		std::unique_ptr<IDevice> digitalDeviceVariantB = digitalFactory->createVariantB( deviceName, presenter );
-		std::unique_ptr<IDevice> digitalDeviceVariantC = digitalFactory->createVariantC( deviceName, presenter );
+		std::unique_ptr<IDevice> analogDevice1 = analogFactory->createDevice( "Analog " + deviceName, presenter );
+		std::unique_ptr<IDevice> digitalDevice1 = digitalFactory->createDevice( "Digital " + deviceName, presenter );
+		std::unique_ptr<IDevice> digitalDeviceVariantA = digitalFactory->createVariantA( "Digital Variant A" + deviceName, presenter );
+		std::unique_ptr<IDevice> digitalDeviceVariantB = digitalFactory->createVariantB( "Digital Variant B" + deviceName, presenter );
+		std::unique_ptr<IDevice> digitalDeviceVariantC = digitalFactory->createVariantC( "Digital Variant C" + deviceName, presenter );
 		result.push_back( std::move( analogDevice1 ) );
 		result.push_back( std::move( digitalDevice1 ) );
 		result.push_back( std::move( digitalDeviceVariantA ) );
@@ -45,6 +46,7 @@ void showData( const std::vector<std::unique_ptr<IDevice>>& devices )
 	for ( const auto& device : devices )
 	{
 		device->printInfo();
+		std::cout << "----------------------------------------\n";
 	}
 }
 
@@ -60,22 +62,6 @@ int main()
 		  new StandardDigitalSequentialIDGenerator()
 		, new StandardRandomizer()
 		, strategies);
-
-	//IDevice* device1 = analogFactory->createDevice( "Analog Device 1", new DefaultDevicePresenter() );
-	//device1->printInfo();
-	//for ( int i = 0; i < 100; i++ )
-	//{
-	//	analogFactory->createDevice( "Analog Device " + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();	 
-	//}
-	//for ( int i = 0; i < 100; i++ )
-	//{
-	//	digitalFactory->createDevice( "Digital Device " + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();
-	//}
-
-	//for (int i = 0; i < 100; i++ )
-	//{
-	//	digitalFactory->createVariantC( "Digital Device Variant C" + std::to_string( i ), new DefaultDevicePresenter() )->printInfo();
-	//}
 
 	constexpr size_t dataToGenerate = 5;
 	std::vector<std::unique_ptr<IDevice>>  devices = generateData( dataToGenerate

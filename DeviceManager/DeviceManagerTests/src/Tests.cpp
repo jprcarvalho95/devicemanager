@@ -24,8 +24,8 @@ TEST( PresenterTests, GivenANullDevicePresenter_WhenAPrintInfoRequestIsMade_AnEx
 {
 
 	AnalogDeviceFactory* factory = new AnalogDeviceFactory( new StandardAnalogSequentialIDGenerator );
-	auto device = factory->createDevice( "Analog Device 1", nullptr );
-	EXPECT_THROW( device->printInfo(), std::runtime_error );
+
+	EXPECT_THROW( factory->createDevice( "Analog Device 1", nullptr ), std::invalid_argument );
 }
 TEST( DeviceTests_Analog, GivenAnAnalogDevice_WhenAnIDIsAssigned_ThenItShouldBeWithinDefinedDomain100_9999 )
 {

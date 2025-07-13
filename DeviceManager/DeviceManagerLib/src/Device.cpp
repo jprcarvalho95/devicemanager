@@ -1,39 +1,33 @@
-#include <iostream>
 #include "Device.h"
-#include <iomanip>
-#include <sstream>
-#include "IDevicePresenter.h"
 #include "IDevice.h"
+#include "IDevicePresenter.h"
 #include "IIDGenerator.h"
+#include <iomanip>
+#include <iostream>
+#include <sstream>
 
 Device::Device( std::string a_name, IDevicePresenter* presenter, IIDGenerator* idGenerator )
 	: m_name( a_name )
 	, _presenter( presenter )
 {
 
-	if (idGenerator == nullptr )
+	if ( idGenerator == nullptr )
 	{
 		throw std::invalid_argument( "IDGenerator cannot be null" );
 	}
 
-
-	IDevice& device = *this;
+	if ( _presenter == nullptr )
+	{
+		throw std::invalid_argument( "Presenter is not set. Cannot print device info." );
+	}
 
 	m_id = idGenerator->getNextFreeId();
 	paddingSize = idGenerator->getMaxId();
-
 }
 
 void Device::printInfo() const
 {
-	if ( _presenter == nullptr )
-	{
-		throw std::runtime_error( "Presenter is not set. Cannot print device info." );
-	}
-		_presenter->PresentDeviceName( *this );
-		_presenter->PresentDeviceID( *this );
-		_presenter->PresentDeviceDescription( *this );
-	
+	_presenter->printInfo( *this );
 }
 
 std::string Device::getName() const
@@ -44,6 +38,11 @@ std::string Device::getName() const
 unsigned int Device::getDeviceID() const
 {
 	return this->m_id;
+}
+
+std::string Device::getDevicePrefix() const
+{
+	return std::string();
 }
 
 
@@ -57,4 +56,3 @@ std::string Device::getDescription() const
 
 	return this->getDevicePrefix() + oss.str();
 }
-
